@@ -21,12 +21,14 @@ from rest_framework import routers
 from pessoa.api import viewsets as pessoaviewsets
 from prescricao.api import viewsets as prescricaoviewsets
 from horario.api import viewsets as horarioviewsets
+from ocorrencia.api import viewsets as ocorrenciaviewsets
 route = routers.DefaultRouter()
 
 route.register(r'usuarios', pessoaviewsets.UsuarioViewSet, basename='usuarios')
 route.register(r'pacientes', pessoaviewsets.PacienteViewSet, basename='pacientes')
 route.register(r'prescricao', prescricaoviewsets.PrescricaoViewSet, basename='prescricao')
 route.register(r'horarios', horarioviewsets.HorarioViewSet, basename='horarios')
+route.register(r'ocorrencia', ocorrenciaviewsets.OcorrenciaViewSet, basename='ocorrencia')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

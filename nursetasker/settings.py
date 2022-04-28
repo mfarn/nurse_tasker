@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'pessoa',
     'prescricao',
     'horario',
+    'ocorrencia'
 ]
 
 MIDDLEWARE = [
