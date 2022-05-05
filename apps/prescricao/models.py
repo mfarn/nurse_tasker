@@ -1,7 +1,7 @@
 from django.db import models
 from uuid import  uuid4
  
-from ..pessoa.models import Paciente,Usuario
+from ..pessoa.models import Paciente, Usuario
  
 class Prescricao(models.Model):
     id_prescricao = models.UUIDField(primary_key=True, default=uuid4, editable=False)
