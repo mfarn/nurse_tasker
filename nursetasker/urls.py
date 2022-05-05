@@ -16,21 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from rest_framework import routers
-
-from pessoa.api import viewsets as pessoaviewsets
-from prescricao.api import viewsets as prescricaoviewsets
-from horario.api import viewsets as horarioviewsets
-from ocorrencia.api import viewsets as ocorrenciaviewsets
-route = routers.DefaultRouter()
-
-route.register(r'usuarios', pessoaviewsets.UsuarioViewSet, basename='usuarios')
-route.register(r'pacientes', pessoaviewsets.PacienteViewSet, basename='pacientes')
-route.register(r'prescricao', prescricaoviewsets.PrescricaoViewSet, basename='prescricao')
-route.register(r'horarios', horarioviewsets.HorarioViewSet, basename='horarios')
-route.register(r'ocorrencia', ocorrenciaviewsets.OcorrenciaViewSet, basename='ocorrencia')
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include(route.urls)),
+    path('api/v1/pessoas/', include('apps.pessoa.urls')),
+    path('api/v1/prescricoes/', include('apps.prescricao.urls')),
+    path('api/v1/ocorrencias/', include('apps.ocorrencia.urls'))
 ]
