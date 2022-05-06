@@ -13,7 +13,11 @@ class OcorrenciaSerializer(serializers.ModelSerializer):
 class OcorrenciaView(APIView):
     def get(self, request, id_ocorrencia=None):
         if id_ocorrencia is None:
-            qs = Ocorrencia.objects.all()
+            prescicao_associada = request.GET.get('prescicao_associada')
+            if prescicao_associada:
+                qs = Ocorrencia.objects.filter(prescicao_associada = prescicao_associada)
+            else:
+                qs = Ocorrencia.objects.all()
             data = OcorrenciaSerializer(qs, many = True).data
             return Response(data)
         qs = Ocorrencia.objects.filter(id_ocorrencia = id_ocorrencia)

@@ -18,10 +18,13 @@ class PrescricaoViewSet(viewsets.ModelViewSet):
    serializer_class = PrescricaoSerializer
 
 class PrescricaoView(APIView):
-   
    def get(self, request, id_prescricao=None):
       if id_prescricao is None:
-         qs = Prescricao.objects.all()
+         cpf_cadastrante = request.GET.get('cpf_cadastrante')
+         if cpf_cadastrante:
+            qs = Prescricao.objects.filter(cpf_cadastrante = cpf_cadastrante)
+         else:
+            qs = Prescricao.objects.all()
          data = PrescricaoSerializer(qs, many = True).data
          return Response(data)
       qs = Prescricao.objects.filter(id_prescricao = id_prescricao)
@@ -36,7 +39,7 @@ class PrescricaoView(APIView):
          return Response(serializer.data)
       return Response({"invalid" : "Not good data"})
 
-   def patch(self, request, id_prescricao):
+   def patch(self, request, id_prescricao=None):
       if id_prescricao is None:
          return Response({"invalid" : "No primary_keys offered"})
       obj = get_object_or_404(Prescricao, id_prescricao = id_prescricao)
