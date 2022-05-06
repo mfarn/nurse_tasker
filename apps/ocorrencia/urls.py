@@ -1,11 +1,8 @@
 from django.urls import path, include
-from rest_framework import routers
-from .views import OcorrenciaViewSet 
-
-router = routers.DefaultRouter()
-router.register(r'', OcorrenciaViewSet)
+from . import views
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', views.ocorrencia_alt_view),
+    path('<uuid:id_ocorrencia>/', views.ocorrencia_alt_view),
 ]
 
