@@ -1,10 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
-from .views import HorarioViewSet
- 
-router = routers.DefaultRouter()
-router.register(r'', HorarioViewSet)
- 
+from . import views
+
 urlpatterns = [
-   path('', include(router.urls))
+   path('', views.horario_alt_view),
+   path('<uuid:id_horario>', views.horario_alt_view),
 ]
