@@ -3,13 +3,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
  
+from ..pessoa.views import UsuarioSerializer
 from .models import Horario
  
  
 class HorarioSerializer(serializers.ModelSerializer):
+   usuario = UsuarioSerializer(many=False, read_only=True)
+
    class Meta:
        model = Horario
-       fields = ('id_horario', 'prescricao_associada', 'status_correspondente', 'horario')
+       fields = ('id_horario', 'prescricao_associada', 'status_correspondente', 'horario', 'cpf_responsavel', 'usuario')
  
    # @permission_classes([IsAuthenticated])
 class HorarioViewSet(viewsets.ModelViewSet):

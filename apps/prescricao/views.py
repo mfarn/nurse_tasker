@@ -3,14 +3,19 @@ from django.shortcuts import get_object_or_404
 from rest_framework import serializers, viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from ..horario.views import HorarioSerializer
  
 from .models import Prescricao
+from ..horario.models import Horario
  
  
 class PrescricaoSerializer(serializers.ModelSerializer):
+   tasks = HorarioSerializer(many=True, read_only=True)
+
    class Meta:
        model = Prescricao
-       fields = ('id_prescricao', 'nome_droga', 'patologia', 'dosagem', 'cpf_paciente', 'cpf_cadastrante')
+       fields = ('id_prescricao', 'nome_droga', 'dosagem', 'cpf_paciente', 'cpf_cadastrante', 'responsavel_atual', 'tasks')
  
    # @permission_classes([IsAuthenticated])
 class PrescricaoViewSet(viewsets.ModelViewSet):
