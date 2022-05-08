@@ -92,9 +92,17 @@ class PrescricaoView(APIView):
          return Response(serializer.data)
       return Response({"invalid" : "Not good data"})
 
-   def patch(self, request):
-
+   def patch(self, request, usuario=None):
       id_prescricao = request.data['id_prescricao']
+
+      if usuario:
+         obj = get_object_or_404(Prescricao, id_prescricao = id_prescricao)
+         data = {}
+         data['cpf_cadastrante'] = usuario
+         serializer = PrescricaoSerializer(obj, data=data, partial=True) # set partial=True to update a data partially
+         if serializer.is_valid(raise_exception=True):
+            serializer_horario.save()
+         return Response(status=201, data=serializer.data)
 
       if id_prescricao is None:
          return Response({"invalid" : "No primary_keys offered"})
