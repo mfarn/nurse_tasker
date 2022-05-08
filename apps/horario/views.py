@@ -20,17 +20,9 @@ class HorarioViewSet(viewsets.ModelViewSet):
    serializer_class = HorarioSerializer
 
 class HorarioView(APIView):
-   def get(self, request, prescricao_associada):
-      if prescricao_associada is None:
-         return Response({"invalid" : "No primary_keys offered"})
-      qs = Horario.objects.filter(prescricao_associada=prescricao_associada)
+   def get(self, request):
+      qs = Horario.objects.all()
       data = HorarioSerializer(qs, many = True).data
       return Response(data)
-   def post(self, request):
-      serializer = HorarioSerializer(data=request.data)
-      if serializer.is_valid(raise_exception=True):
-         serializer.save()
-         return Response(serializer.data)
-      return Response({"invalid" : "Not good data"})
 
 horario_alt_view = HorarioView.as_view()

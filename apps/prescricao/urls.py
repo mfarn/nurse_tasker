@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
    path('', views.prescricao_alt_view),
    path('<uuid:id_prescricao>/', views.prescricao_alt_view),
+   path('<str:usuario>/', views.prescricao_alt_view),
 ]
